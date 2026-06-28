@@ -25,13 +25,12 @@ dataHandler = HistoricDataHandler(events, csv_dir)
 
 while True:
     # Update the bars (specific backtest code, as opposed to live trading)
-    print(dataHandler.data.index)
     if dataHandler.continue_backtest == True:
         #get next peice of data
         dataHandler.get_next_bar()
+        #create MarketEvent
     else:
         break
-    
     #Pass the MarketEvent to the Strategy.
     #If a SignalEvent is returned pass to the Portfolio.
     #If an OrderEvent is returned pass to the ExecutionHandler.

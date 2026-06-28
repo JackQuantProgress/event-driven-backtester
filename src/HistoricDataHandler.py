@@ -22,29 +22,38 @@ class HistoricDataHandler(DataHandler):
         events - The Event Queue.
         csv_dir - Absolute directory path to the CSV files.
         continue_backtest - Used to end the while loop in main.
-        data - A pandas data frame with all of the csv data.
+        df - A pandas data frame with all of the csv data.
+        current_i - Index of where the loop currently is in the df.
         """
         self.events = events
         self.csv_dir = csv_dir
         self.continue_backtest = True
-        self.data = None    
+        self.df = None
+        self.current_i = 1 
 
         self.read_and_store_data()
     
     def read_and_store_data(self):
         """
-        Reads the csv file, converts it into a data frame and stores it in data.
+        Reads the csv file, converts it into a data frame and stores it in df.
         """
-        self.data = pd.read_csv(self.csv_dir)
+        self.df = pd.read_csv(self.csv_dir)
 
         pass
 
-    def get_next_bar(self, symbol):
+    def get_next_bar(self):
         """
         Returns next bar in the data csv file.
         (sybmbol, datetime, open, low, high, close, volume).
         """
-        pass
+        try:
+            #increment and get next row
+            self.i += 1
+            return(self.df.iloc[self.i])
+        except:
+            #out of range
+            self.continue_backtest = False
+        
 
 
     def update_bars(self):
