@@ -1,4 +1,4 @@
-# event.py
+from .Event import Event
 
 class SignalEvent(Event):
     """
@@ -6,7 +6,7 @@ class SignalEvent(Event):
     This is received by a Portfolio object and acted upon.
     """
     
-    def __init__(self):
+    def __init__(self, signal_type, date):
         """
         Initialises the SignalEvent.
 
@@ -16,3 +16,5 @@ class SignalEvent(Event):
         signal_type - 'LONG' or 'SHORT'.
         """
         self.type = "SignalEvent"
+        self.date = date
+        self.signal_type = signal_type

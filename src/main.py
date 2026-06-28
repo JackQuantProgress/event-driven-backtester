@@ -1,4 +1,5 @@
-from HistoricDataHandler import HistoricDataHandler
+from Data.HistoricDataHandler import HistoricDataHandler
+from Strategies.MovingAverageCrossover import MovingAverageCrossover
 from Events.MarketEvent import MarketEvent
 
 import yfinance as yf
@@ -22,10 +23,17 @@ running = True
 
 #Instantiating classes
 dataHandler = HistoricDataHandler(events, csv_dir)
+strategy = MovingAverageCrossover(20, 50)
 
 #defining handlers
 def handle_market_event(event):
-    pass
+    global events
+    #call strategy
+    res = strategy.evaluate_averages(event)
+    #if event is returned add it to the queue
+    if res != None:
+        print("SignalEvent")
+        events += [res]
 
 def handle_fill_event(event):
     raise NotImplementedError("handle_fill_event")
@@ -45,24 +53,23 @@ handlers = {
 
 while True:
     # Update the bars (specific backtest code, as opposed to live trading)
-    if dataHandler.continue_backtest == True:
-        #get next peice of data
-        print("creating bar...")
-        bar = dataHandler.get_next_bar()
-        print("done")
+    #print("creating bar...")
+    bar = dataHandler.get_next_bar()
+    #print("done")
 
-        #create MarketEvent
-        print("creating MarketEvent...")
-        events += [MarketEvent(bar["Date"], bar["Close"])]
-        print("done")
-    else:
+    if dataHandler.continue_backtest == False: #end loop
         break
 
+    #create MarketEvent
+    #print("creating MarketEvent...")
+    events += [MarketEvent(bar["Date"], float(bar["Close"]))]
+    #print("done")
+
     while len(events) > 0:
-        print("handling event...")
+        #print("handling event...")
 
         event = events.pop(0)
         event_type = event.type
 
         handlers[event_type](event)
-        print("done")
+print("done")

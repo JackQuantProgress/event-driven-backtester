@@ -1,4 +1,4 @@
-from DataHandler import DataHandler
+from .DataHandler import DataHandler
 
 import pandas as pd
 
@@ -29,7 +29,7 @@ class HistoricDataHandler(DataHandler):
         self.csv_dir = csv_dir
         self.continue_backtest = True
         self.df = None
-        self.current_i = 1 
+        self.current_i = 2
 
         self.read_and_store_data()
     
@@ -49,7 +49,6 @@ class HistoricDataHandler(DataHandler):
         try:
             #increment and get next row
             self.current_i += 1
-            print(self.df.iloc[self.current_i])
             return(self.df.iloc[self.current_i])
         except:
             #out of range
