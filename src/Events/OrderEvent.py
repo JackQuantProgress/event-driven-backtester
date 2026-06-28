@@ -21,7 +21,7 @@ class OrderEvent(Event):
         direction - 'BUY' or 'SELL' for long or short.
         """
         
-        self.type = 'ORDER'
+        self.type = 'OrderEvent'
         self.symbol = symbol
         self.order_type = order_type
         self.quantity = quantity

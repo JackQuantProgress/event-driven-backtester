@@ -27,6 +27,7 @@ class FillEvent(Event):
         fill_cost - The holdings value in dollars.
         commission - An optional commission sent from IB.
         """
+        self.type = "FillEvent"
         
 
     def calculate_ib_commission(self):

@@ -48,13 +48,12 @@ class HistoricDataHandler(DataHandler):
         """
         try:
             #increment and get next row
-            self.i += 1
-            return(self.df.iloc[self.i])
+            self.current_i += 1
+            print(self.df.iloc[self.current_i])
+            return(self.df.iloc[self.current_i])
         except:
             #out of range
             self.continue_backtest = False
-        
-
 
     def update_bars(self):
         """

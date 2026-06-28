@@ -15,3 +15,4 @@ class SignalEvent(Event):
         datetime - The timestamp at which the signal was generated.
         signal_type - 'LONG' or 'SHORT'.
         """
+        self.type = "SignalEvent"

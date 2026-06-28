@@ -1,3 +1,4 @@
+from .Event import Event
 
 class MarketEvent(Event):
     """
@@ -5,7 +6,13 @@ class MarketEvent(Event):
     OHLCV values.
     """
 
-    def __init__(self):
+    def __init__(self, timestamp, close):
         """
         Initialises the MarketEvent.
         """
+
+        super().__init__()
+
+        self.type = "MarketEvent"
+        self.timestamp = timestamp
+        self.close = close
