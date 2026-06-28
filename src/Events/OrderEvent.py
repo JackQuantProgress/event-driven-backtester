@@ -7,7 +7,7 @@ class OrderEvent(Event):
     quantity and a direction.
     """
 
-    def __init__(self, symbol, order_type, quantity, direction):
+    def __init__(self):
         """
         Initialises the order type, setting whether it is
         a Market order ('MKT') or Limit order ('LMT'), has
@@ -31,5 +31,3 @@ class OrderEvent(Event):
         """
         Outputs the values within the Order.
         """
-        print "Order: Symbol=%s, Type=%s, Quantity=%s, Direction=%s" % \
-            (self.symbol, self.order_type, self.quantity, self.direction)

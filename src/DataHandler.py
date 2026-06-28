@@ -6,8 +6,6 @@ from abc import ABCMeta, abstractmethod
 
 from event import MarketEvent
 
-# data.py
-
 class DataHandler(object):
     """
     DataHandler is an abstract base class providing an interface for
@@ -24,7 +22,7 @@ class DataHandler(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def get_latest_bars(self, symbol, N=1):
+    def get_next_bar(self):
         """
         Returns the last N bars from the latest_symbol list,
         or fewer if less bars are available.

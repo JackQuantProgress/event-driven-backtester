@@ -8,8 +8,7 @@ class FillEvent(Event):
     the commission of the trade from the brokerage.
     """
 
-    def __init__(self, timeindex, symbol, exchange, quantity, 
-                 direction, fill_cost, commission=None):
+    def __init__(self):
         """
         Initialises the FillEvent object. Sets the symbol, exchange,
         quantity, direction, cost of fill and an optional 
@@ -29,19 +28,6 @@ class FillEvent(Event):
         commission - An optional commission sent from IB.
         """
         
-        self.type = 'FILL'
-        self.timeindex = timeindex
-        self.symbol = symbol
-        self.exchange = exchange
-        self.quantity = quantity
-        self.direction = direction
-        self.fill_cost = fill_cost
-
-        # Calculate commission
-        if commission is None:
-            self.commission = self.calculate_ib_commission()
-        else:
-            self.commission = commission
 
     def calculate_ib_commission(self):
         """

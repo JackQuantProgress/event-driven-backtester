@@ -17,7 +17,15 @@ events = []
 csv_dir = "data/SPY.csv"
 running = True
 
+#Instantiating classes
 dataHandler = HistoricalDataHandler(events, csv_dir)
 
 while (running):
+    #Get next peice of data.
+    dataHandler.get_next_bar()
+    #Pass the MarketEvent to the Strategy.
+    #If a SignalEvent is returned pass to the Portfolio.
+    #If an OrderEvent is returned pass to the ExecutionHandler.
+    #Use the FillEvent to update the Portfolio.
+    #Check the running variable in DataHadler.
 

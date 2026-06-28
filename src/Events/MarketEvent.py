@@ -9,4 +9,3 @@ class MarketEvent(Event):
         """
         Initialises the MarketEvent.
         """
-        self.type = 'MARKET'
