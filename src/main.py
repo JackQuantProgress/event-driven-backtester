@@ -1,7 +1,8 @@
+from HistoricDataHandler import HistoricDataHandler
+
 import yfinance as yf
 import pandas as pd
 import os
-import * from HistoricalDataHandler
 print(os.getcwd())
 
 start = "2020-01-01"
@@ -18,14 +19,21 @@ csv_dir = "data/SPY.csv"
 running = True
 
 #Instantiating classes
-dataHandler = HistoricalDataHandler(events, csv_dir)
+dataHandler = HistoricDataHandler(events, csv_dir)
 
-while (running):
-    #Get next peice of data.
-    dataHandler.get_next_bar()
+
+
+while True:
+    # Update the bars (specific backtest code, as opposed to live trading)
+    print(dataHandler.data.index)
+    if dataHandler.continue_backtest == True:
+        #get next peice of data
+        dataHandler.get_next_bar()
+    else:
+        break
+    
     #Pass the MarketEvent to the Strategy.
     #If a SignalEvent is returned pass to the Portfolio.
     #If an OrderEvent is returned pass to the ExecutionHandler.
     #Use the FillEvent to update the Portfolio.
     #Check the running variable in DataHadler.
-

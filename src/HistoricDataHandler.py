@@ -1,6 +1,8 @@
-# data.py
+from DataHandler import DataHandler
 
-class HistoricCSVDataHandler(DataHandler):
+import pandas as pd
+
+class HistoricDataHandler(DataHandler):
     """
     HistoricCSVDataHandler is designed to read CSV files for
     each requested symbol from disk and provide an interface
@@ -33,6 +35,8 @@ class HistoricCSVDataHandler(DataHandler):
         """
         Reads the csv file, converts it into a data frame and stores it in data.
         """
+        self.data = pd.read_csv(self.csv_dir)
+
         pass
 
     def get_next_bar(self, symbol):
