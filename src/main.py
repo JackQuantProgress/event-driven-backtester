@@ -99,4 +99,6 @@ while True:
         event_type = event.type
 
         handlers[event_type](event)
+
 print("start cash = 100000   end cash = ", portfolio.calculate_portfolio_value())
+print(portfolio.record_history())

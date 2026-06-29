@@ -24,6 +24,8 @@ class Portfolio(object):
 
         self.current_share_price = None
 
+        self.trades = [] #trade profit
+
     def handle_signal_event(self, event):
         #flat and buy
         if self.current_position == 0 and event.signal_type == "BUY":
@@ -70,12 +72,14 @@ class Portfolio(object):
             self.stop_loss
         
         elif event.direction == "SELL":
+            self.trades.append({"profit = " + str((event.fill_price - (self.entry_value * self.shares)))})
             self.shares -= event.quantity
             self.cash += event.fill_price
             self.current_position = 0
+            
 
     def calculate_portfolio_value(self):
         return (self.cash + (self.shares * self.current_share_price))
 
     def record_history(self):
-        raise NotImplementedError("please implement record_history()")
+        return self.trades

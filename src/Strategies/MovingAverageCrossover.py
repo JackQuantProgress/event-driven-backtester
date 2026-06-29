@@ -63,7 +63,6 @@ class MovingAverageCrossover(Strategy):
             return self.create_signal_event(marketEvent)
 
         else:
-            self.sign = new_sign
             return None
 
     def create_signal_event(self, marketEvent):
