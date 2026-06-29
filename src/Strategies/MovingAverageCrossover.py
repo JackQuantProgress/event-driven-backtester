@@ -67,7 +67,7 @@ class MovingAverageCrossover(Strategy):
             return None
 
     def create_signal_event(self, marketEvent):
-        date = marketEvent.timestamp
+        date = marketEvent.date
         #decide on long or short
         if self.sign == 1:
             return SignalEvent("BUY", date, marketEvent.close)

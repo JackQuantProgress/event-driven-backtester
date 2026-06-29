@@ -6,9 +6,9 @@ class Portfolio(object):
     Analyses position, signals and risks to decide whether to make a trade or not.
     """
     def __init__(self):
-        self.total = 1000
+        self.total = 100000
 
-        self.cash = 1000
+        self.cash = 100000
 
         self.position_size = 0.1
 
@@ -21,6 +21,8 @@ class Portfolio(object):
         self.shares = 0
 
         self.entry_value = None
+
+        self.current_share_price = None
 
     def handle_signal_event(self, event):
         #flat and buy
@@ -48,17 +50,32 @@ class Portfolio(object):
         else:
             raise NotImplementedError("shorting is not implemented yet")
 
-    def check_stop_loss(self):
-        #checks on each market event whether or not the stop loss has be crossed
-        #if it has returns OrderEvent(sell)
-        raise NotImplementedError("please implement check_stop_loss()")
+    def check_stop_loss(self, event):#MarketEvent
+        self.current_share_price = event.close
+        if self.current_position == 1:
+            stop_loss_value = (self.entry_value * (1-self.stop_loss))
+            if event.close < stop_loss_value:
+                return OrderEvent(self.shares, "SELL", event.close, event.date)
+            else:
+                return None
 
     #post fill
-    def handle_fill_event(self):
-        raise NotImplementedError("please implement handle_fill_event()")
+    def handle_fill_event(self, event):
+        print("trade confirmed")
+        if event.direction == "BUY":
+            self.shares += event.quantity
+            self.cash -= event.fill_price
+            self.current_position = 1
+            self.entry_value = event.fill_price/event.quantity
+            self.stop_loss
+        
+        elif event.direction == "SELL":
+            self.shares -= event.quantity
+            self.cash += event.fill_price
+            self.current_position = 0
 
     def calculate_portfolio_value(self):
-        raise NotImplementedError("please implement calculate_portfolio_value()")
+        return (self.cash + (self.shares * self.current_share_price))
 
     def record_history(self):
         raise NotImplementedError("please implement record_history()")

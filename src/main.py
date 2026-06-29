@@ -9,15 +9,15 @@ import pandas as pd
 import os
 print(os.getcwd())
 
-start = "2020-01-01"
-end = "2021-01-01"
+start = "2010-01-01"
+end = "2025-01-01"
 
 def getData(ticker, start, end):
     df = yf.download(ticker, start=start, end=end)
     df = df.reset_index()
     df.to_csv("data/SPY.csv")
 
-#getData("SPY", start, end)
+getData("SPY", start, end)
 
 events = []
 csv_dir = "data/SPY.csv"
@@ -33,22 +33,30 @@ execution_handler = ExecutionHandler()
 def handle_market_event(event):
     global events
     #call strategy
-    res = strategy.evaluate_averages(event)
+    res1 = portfolio.check_stop_loss(event)
+    if res1 != None:
+        print("STOP LOSS")
+        events += [res1]
+
+    res2 = strategy.evaluate_averages(event)
     #if event is returned add it to the queue
-    if res != None:
-        print("SignalEvent")
-        events += [res]
+    if res2 != None:
+        events += [res2]
 
 def handle_fill_event(event):
-    raise NotImplementedError("handle_fill_event")
+    global events
 
+    res = portfolio.handle_fill_event(event)
+
+    if res!= None:
+        pass
 def handle_order_event(event):
     global events
 
     res = execution_handler.handle_order_event(event)
 
     if res != None:
-        print("FillEvent")
+        print("FillEvent", res.direction, res.fill_price, res.quantity)
         events += [res]
     else:
         print("no fill event")
@@ -60,7 +68,6 @@ def handle_signal_event(event):
     res = portfolio.handle_signal_event(event)
 
     if res != None:
-        print("OrderEvent")
         events += [res]
 
 
@@ -92,4 +99,4 @@ while True:
         event_type = event.type
 
         handlers[event_type](event)
-print("done")
+print("start cash = 100000   end cash = ", portfolio.calculate_portfolio_value())
