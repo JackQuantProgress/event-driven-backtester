@@ -2,6 +2,7 @@ from Data.HistoricDataHandler import HistoricDataHandler
 from Strategies.MovingAverageCrossover import MovingAverageCrossover
 from Events.MarketEvent import MarketEvent
 from Portfolio import Portfolio
+from ExecutionHandler import ExecutionHandler
 
 import yfinance as yf
 import pandas as pd
@@ -26,6 +27,7 @@ running = True
 dataHandler = HistoricDataHandler(events, csv_dir)
 strategy = MovingAverageCrossover(20, 50)
 portfolio = Portfolio()
+execution_handler = ExecutionHandler()
 
 #defining handlers
 def handle_market_event(event):
@@ -41,11 +43,22 @@ def handle_fill_event(event):
     raise NotImplementedError("handle_fill_event")
 
 def handle_order_event(event):
-    raise NotImplementedError("handle_order_event")
+    global events
+
+    res = execution_handler.handle_order_event(event)
+
+    if res != None:
+        print("FillEvent")
+        events += [res]
+    else:
+        print("no fill event")
+
 
 def handle_signal_event(event):
     global events
+
     res = portfolio.handle_signal_event(event)
+
     if res != None:
         print("OrderEvent")
         events += [res]

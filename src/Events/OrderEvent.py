@@ -7,7 +7,7 @@ class OrderEvent(Event):
     quantity and a direction.
     """
 
-    def __init__(self, quantity, direction):
+    def __init__(self, quantity, direction, share_price, date):
         """
         Initialises the order type, setting whether it is
         a Market order ('MKT') or Limit order ('LMT'), has
@@ -22,6 +22,8 @@ class OrderEvent(Event):
         self.type = 'OrderEvent'
         self.quantity = quantity
         self.direction = direction
+        self.share_price = share_price
+        self.date = date
 
     def print_order(self):
         """

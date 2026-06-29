@@ -25,26 +25,26 @@ class Portfolio(object):
     def handle_signal_event(self, event):
         #flat and buy
         if self.current_position == 0 and event.signal_type == "BUY":
-            return self.calculate_position_size(event.current_price)
+            return self.calculate_position_size(event)
         #long and sell
         elif self.current_position == 1 and event.signal_type == "SELL":
-            return self.create_order_event(self.shares)
+            return self.create_order_event(self.shares, event.current_price, event.date)
         else:
             return None
 
-    def calculate_position_size(self, share_price):
+    def calculate_position_size(self, event):
 
         budget = (self.cash * self.position_size)
-        shares = math.floor(budget / share_price)
+        shares = math.floor(budget / event.current_price)
 
-        return self.create_order_event(shares)
+        return self.create_order_event(shares, event.current_price, event.date)
 
-    def create_order_event(self, shares):
+    def create_order_event(self, shares, share_price, date):
         #check position
         if self.current_position == 1:
-            return OrderEvent(shares, "SELL")
+            return OrderEvent(shares, "SELL", share_price, date)
         elif self.current_position == 0:
-            return OrderEvent(shares, "BUY")
+            return OrderEvent(shares, "BUY", share_price, date)
         else:
             raise NotImplementedError("shorting is not implemented yet")
 
