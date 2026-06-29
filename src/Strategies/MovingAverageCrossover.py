@@ -70,6 +70,6 @@ class MovingAverageCrossover(Strategy):
         date = marketEvent.timestamp
         #decide on long or short
         if self.sign == 1:
-            return SignalEvent("Long", date)
+            return SignalEvent("BUY", date, marketEvent.close)
         else:
-            return SignalEvent("Short", date)
+            return SignalEvent("SELL", date, marketEvent.close)

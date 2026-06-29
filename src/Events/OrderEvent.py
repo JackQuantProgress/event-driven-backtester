@@ -1,4 +1,4 @@
-# event.py
+from .Event import Event
 
 class OrderEvent(Event):
     """
@@ -7,7 +7,7 @@ class OrderEvent(Event):
     quantity and a direction.
     """
 
-    def __init__(self):
+    def __init__(self, quantity, direction):
         """
         Initialises the order type, setting whether it is
         a Market order ('MKT') or Limit order ('LMT'), has
@@ -15,15 +15,11 @@ class OrderEvent(Event):
         'SELL').
 
         Parameters:
-        symbol - The instrument to trade.
-        order_type - 'MKT' or 'LMT' for Market or Limit.
         quantity - Non-negative integer for quantity.
         direction - 'BUY' or 'SELL' for long or short.
         """
         
         self.type = 'OrderEvent'
-        self.symbol = symbol
-        self.order_type = order_type
         self.quantity = quantity
         self.direction = direction
 
