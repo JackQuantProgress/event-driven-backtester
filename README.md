@@ -73,3 +73,30 @@ The strategy was tested using different combinations of short-term and long-term
 
 ![100/10 Moving Average Crossover](results/10010.png)
 
+---
+
+## Conclusion
+
+Building this event-driven backtesting system helped me understand how trading systems are structured beyond just strategy design.
+
+The main takeaway was learning how to separate responsibilities across different components:
+
+- Data handling is isolated from strategy logic  
+- Strategy focuses only on generating signals  
+- Portfolio manages risk and position sizing  
+- Execution simulates real-world order processing  
+
+Using an event-driven architecture made it clear how each part of the system communicates through well-defined events, which keeps the design modular and scalable.
+
+Implementing the system from scratch also highlighted practical challenges such as:
+
+- Managing clean and consistent data flow  
+- Maintaining correct internal state across events  
+- Handling edge cases like missing data or invalid signals  
+- Ensuring type and logic consistency across components  
+
+While the moving average crossover strategy itself produced only modest performance over historical data, the real value of the project was in the engineering process.
+
+Overall, this project gave a practical understanding of how professional trading systems are built, and how architectural decisions around event flow, risk handling, and signal processing can strongly influence both reliability and performance.
+
+
