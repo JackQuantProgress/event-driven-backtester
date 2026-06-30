@@ -4,6 +4,7 @@ from Events.MarketEvent import MarketEvent
 from Portfolio import Portfolio
 from ExecutionHandler import ExecutionHandler
 
+import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
 import os
@@ -102,3 +103,13 @@ while True:
 
 print("start cash = 100000   end cash = ", portfolio.calculate_portfolio_value())
 print(portfolio.record_history())
+
+df = pd.DataFrame(portfolio.history)
+
+df.plot(
+    x="date",
+    y="value",
+    title="Portfolio Value"
+)
+print("plot made")
+plt.savefig("portfolio_value.png")
