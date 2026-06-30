@@ -46,7 +46,7 @@ The strategy was tested using different combinations of short-term and long-term
 * Long moving average: **30 days**
 * Generates signals when the 10-day average crosses the 30-day average
 
-
+![30/10 Moving Average Crossover](results/3010.png)
 
 ### 50 / 10 Moving Average Crossover
 
@@ -54,7 +54,7 @@ The strategy was tested using different combinations of short-term and long-term
 * Long moving average: **50 days**
 * Generates signals when the 10-day average crosses the 50-day average
 
-![Uploading 5010.png…]()
+![50/10 Moving Average Crossover](results/5010.png)
 
 ### 50 / 20 Moving Average Crossover
 
@@ -62,7 +62,7 @@ The strategy was tested using different combinations of short-term and long-term
 * Long moving average: **50 days**
 * Generates signals when the 20-day average crosses the 50-day average
 
-![Uploading 5020.png…]()
+![50/20 Moving Average Crossover](results/5020.png)
 
 
 ### 100 / 10 Moving Average Crossover
@@ -71,5 +71,5 @@ The strategy was tested using different combinations of short-term and long-term
 * Long moving average: **100 days**
 * Generates signals when the 10-day average crosses the 100-day average
 
-![Uploading 10010.png…]()
+![100/10 Moving Average Crossover](results/10010.png)
 
